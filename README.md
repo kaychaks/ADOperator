@@ -20,8 +20,7 @@ to extend and add features.
 ---
 - `reference.conf` lists all the relevant configs required to run the application
 - some of the values need to be updated like connection params to AD listed in `ad.login`, `search.base` & `search.group`
-- to change the value of config params - either the specific option can be changed in `reference
-.conf` itself or specific config params (with updated values) can be added to a new file 
+- to change the value of config params - either the specific option can be changed in `reference.conf` itself or specific config params (with updated values) can be added to a new file 
 `application.conf` (value of the props here will get higher priority). Later way is recommended
 - configuration follows the [_HOCON_ spec](https://github.com/typesafehub/config/blob/master/HOCON.md)
 
