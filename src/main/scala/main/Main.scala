@@ -8,7 +8,6 @@ object Main extends App {
   import Output._
   import ProfileFetcher._
 
-  println(conf)
   val group =
     String.format(conf.search.filterMemberOfTemplate, conf.search.group)
 
@@ -20,5 +19,4 @@ object Main extends App {
     case Success(_) => println("Done")
     case Failure(e) => e.printStackTrace()
   }
-
 }
