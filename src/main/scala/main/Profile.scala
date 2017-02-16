@@ -2,25 +2,27 @@ package main
 
 import javax.naming.directory.Attributes
 
+import cats.implicits._
+
 import scala.language.postfixOps
 
 final case class Profile(
     id: String,
     mail: String,
-    department: Option[String],
-    streetAddress: Option[String],
-    designation: Option[String],
-    mobile: Option[String],
-    tel: Option[String],
-    country: Option[String],
-    postalCode: Option[String],
-    state: Option[String],
-    city: Option[String],
-    firstName: Option[String],
-    lastName: Option[String],
-    manager: Option[Profile],
-    officeAddress: Option[String],
-    experience: Option[String]
+    department: Option[String] = None,
+    streetAddress: Option[String] = None,
+    designation: Option[String] = None,
+    mobile: Option[String] = None,
+    tel: Option[String] = None,
+    country: Option[String] = None,
+    postalCode: Option[String] = None,
+    state: Option[String] = None,
+    city: Option[String] = None,
+    firstName: Option[String] = None,
+    lastName: Option[String] = None,
+    manager: Option[Profile] = None,
+    officeAddress: Option[String] = None,
+    experience: Option[String] = None
 )
 
 object Profile {
@@ -50,4 +52,7 @@ object Profile {
       manager = None
     )
   }
+
+  def unfold: Profile => List[Profile] =
+    p => List(p) >>= (x => x :: x.manager.fold(List[Profile]())(unfold))
 }

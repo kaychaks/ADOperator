@@ -10,9 +10,10 @@ object ProfileFetcher {
   import ProfileOps.buildProfiles
 
   private def search(implicit ctx: InitialDirContext,
-             base: String,
-             ctrl: SearchControls): String => List[SearchResult] = { filter =>
-    ctx.search(base, filter, ctrl).asScala.toList
+                     base: String,
+                     ctrl: SearchControls): String => List[SearchResult] = {
+    filter =>
+      ctx.search(base, filter, ctrl).asScala.toList
   }
 
   private def searchF: (String) => List[SearchResult] = search
@@ -31,7 +32,9 @@ object ProfileFetcher {
 
   def searchProfile: String => Option[SearchResult] = { dn =>
     val filter = String.format(conf.search.filterUserTemplate, dn)
-    searchF(filter).headOption
+    if (!dn.contains("""Narayanan\\, Lakshmi (Vice Chairman\\, Cognizant)"""))
+      searchF(filter).headOption
+    else None
   }
 
   def getAllMembersInAGroup: (String) => Try[List[Profile]] =

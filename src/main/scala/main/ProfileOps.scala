@@ -57,8 +57,8 @@ object ProfileOps {
 
       _ <- maybeMgr
         .fold(
-          getManager(mgrKey)
-            .flatMap(m => updateProfileWithManager(m, key))
+          getManager(mgrKey) >>=
+            (m => updateProfileWithManager(m, key))
         )(_ => updateProfileWithManager(maybeMgr, key))
 
       ret <- State.inspect[Store, Profile](st => st(key))
