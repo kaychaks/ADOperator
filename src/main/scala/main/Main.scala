@@ -14,7 +14,7 @@ object Main extends App {
   {
     for {
       profiles <- getAllMembersInAGroup(group)
-    } yield printUnfoldedProfilesWithManagerId(conf.outputFileLoc)(profiles)
+    } yield printUnfoldedProfilesForDD(conf.outputFileLoc)(profiles)
   } match {
     case Success(_) => println("Done")
     case Failure(e) => e.printStackTrace()

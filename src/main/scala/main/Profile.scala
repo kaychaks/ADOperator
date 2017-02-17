@@ -1,5 +1,7 @@
 package main
 
+import java.time.format.DateTimeFormatter
+import java.time.{Period, ZonedDateTime}
 import javax.naming.directory.Attributes
 
 import cats.implicits._
@@ -22,13 +24,20 @@ final case class Profile(
     lastName: Option[String] = None,
     manager: Option[Profile] = None,
     officeAddress: Option[String] = None,
-    experience: Option[String] = None
+    experience: Option[Int] = None
 )
 
 object Profile {
 
   private def toStr(implicit as: Attributes): String => Option[String] =
     i => Option(as.get(i)).map(_.get(0).toString)
+
+  private def toPeriod: String => Period = { str =>
+    val formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss.0X")
+    val zdt = ZonedDateTime.parse(str, formatter)
+    val today = ZonedDateTime.now(zdt.getZone).toLocalDate
+    Period.between(zdt.toLocalDate, today)
+  }
 
   def profile: Attributes => Profile = { implicit attribs =>
     def toStrF = toStr
@@ -42,13 +51,13 @@ object Profile {
       lastName = toStrF("sn"),
       firstName = toStrF("givenName"),
       department = toStrF("department"),
-      designation = toStrF("designation"),
+      designation = toStrF("description"),
       streetAddress = toStrF("streetAddress"),
       officeAddress = toStrF("phsicalDeliveryOfficeName"),
       mobile = toStrF("mobile"),
       tel = toStrF("telephoneNumber"),
       postalCode = toStrF("postalCode"),
-      experience = toStrF("experience"),
+      experience = toStrF("whenCreated").map(toPeriod).map(_.getYears),
       manager = None
     )
   }

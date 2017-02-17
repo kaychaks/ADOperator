@@ -24,9 +24,9 @@ object Output {
     }
   }
 
-  def printUnfoldedProfilesWithManagerId: PrintOutput = { file => ps =>
+  def printUnfoldedProfilesForDD: PrintOutput = { file =>ps =>
     Try {
-      import main.ShowInstances.AltProfile._
+      import main.ShowInstances.DeepDiveProfile._
       val dp = (ps >>= unfold).distinct
       Files.write(file, dp.show.getBytes)
     }

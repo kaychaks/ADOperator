@@ -11,6 +11,11 @@ object ShowInstances {
       case Some(s) => s.show
       case None => s"""null\t"""
     }
+
+    implicit val tiOpt: Show[Option[Int]] = {
+      case Some(s) => s.show
+      case None => s"""null\t"""
+    }
   }
 
   object StdProfile {
@@ -48,7 +53,7 @@ ${f.experience.show}\t
     }
   }
 
-  object AltProfile {
+  object DeepDiveProfile {
 
     import CommonShowInstances._
 
@@ -67,19 +72,11 @@ ${f.experience.show}\t
 ${f.id.show}\t
 ${f.firstName.show}\t
 ${f.lastName.show}\t
-${f.mail.show}\t
-${f.department.show}\t
-${f.streetAddress.show}\t
+${f.manager.show}\t
 ${f.designation.show}\t
-${f.mobile.show}\t
-${f.tel.show}\t
-${f.country.show}\t
-${f.postalCode.show}\t
-${f.state.show}\t
-${f.city.show}\t
-${f.officeAddress.show}\t
+${f.department.show}\t
 ${f.experience.show}\t
-${f.manager.show}
+${f.city.show}
       """.stripMargin.replaceAll("\n", "")
     }
   }
