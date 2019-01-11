@@ -9,12 +9,12 @@ object ShowInstances {
 
     implicit val tsOpt: Show[Option[String]] = {
       case Some(s) => s.show
-      case None => s"""null\t"""
+      case None => s"""null"""
     }
 
     implicit val tiOpt: Show[Option[Int]] = {
       case Some(s) => s.show
-      case None => s"""null\t"""
+      case None => s"""null"""
     }
   }
 
@@ -28,7 +28,7 @@ object ShowInstances {
 
     implicit val tsOptPro: Show[Option[Profile]] = {
       case Some(p) => p.show
-      case None => s"""null\t"""
+      case None => s"""null"""
     }
 
     implicit val showProfile: Show[Profile] = { (f: Profile) =>
@@ -64,7 +64,7 @@ ${f.experience.show}\t
 
     implicit val tsOptProOnlyId: Show[Option[Profile]] = {
       case Some(p) => p.id.show
-      case None => s"""null\t"""
+      case None => s"""null"""
     }
 
     implicit val showProfileWithManagerIds: Show[Profile] = { (f: Profile) =>
@@ -77,7 +77,7 @@ ${f.designation.show}\t
 ${f.department.show}\t
 ${f.experience.show}\t
 ${f.city.show}
-      """.stripMargin.replaceAll("\n", "")
+      """.stripMargin.replace("\n","").trim()
     }
   }
 
