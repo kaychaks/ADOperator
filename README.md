@@ -39,5 +39,5 @@ redundant AD calls
 - `Show` type classes are used to produce TSV encoding
 - dependencies - `pureconfig` for loading configuration files & `cats` for all typelevel goodness
 
-
+### End README
 
