@@ -32,7 +32,8 @@ object ProfileFetcher {
 
   def searchProfile: String => Option[SearchResult] = { dn =>
     val filter = String.format(conf.search.filterUserTemplate, dn)
-    if (!dn.contains("""Narayanan\\, Lakshmi (Vice Chairman\\, Cognizant)"""))
+    val ceoName = "" // most of the AD make this object cyclic hence eliminating it from search
+    if (!dn.contains(ceoName))
       searchF(filter).headOption
     else None
   }
